@@ -13,10 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Data {
+model NoiceLevel {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
-  level Int
-  time  Int
+  name  String
+  value Int
 
-  @@map("data")
+  @@map("noiceLevels")
 }
+
+

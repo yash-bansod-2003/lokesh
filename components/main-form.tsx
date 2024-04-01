@@ -17,24 +17,27 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner";
+import { useMounted } from "@/hooks/use-mounted";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-      level: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
+      name : z.string().min(2).max(10),
+      value: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
             message: "Expected number, received a string"
       }),
-      time: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
-            message: "Expected number, received a string"
-      })
 })
 
 export const MainForm = () => {
+      const router = useRouter();
+      const { mounted } = useMounted();
       const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
 
       const form = useForm<z.infer<typeof formSchema>>({
             resolver: zodResolver(formSchema),
             defaultValues: {
-                  level: "0",
-                  time: "1"
+                  name : "",
+                  value : "0"
             },
       })
 
@@ -53,15 +56,23 @@ export const MainForm = () => {
 
             if (!response?.ok) {
                   return toast.error("Something went wrong.", {
-                        description: "Your item was not created. Please try again.",
+                        description: "Your noicd level was not created. Please try again.",
                   });
             }
 
             const item = await response.json();
 
-            return toast.success("Your item was created.", {
+            form.reset();
+
+            router.refresh();
+
+            return toast.success("Your noice level was created.", {
                   description: "please check your table view for further updates.",
             });
+      }
+
+      if (!mounted) {
+            return null;
       }
 
       return (
@@ -73,10 +84,10 @@ export const MainForm = () => {
                               </legend>
                               <FormField
                                     control={form.control}
-                                    name="level"
+                                    name="name"
                                     render={({ field }) => (
                                           <FormItem>
-                                                <FormLabel>Level</FormLabel>
+                                                <FormLabel>Name</FormLabel>
                                                 <FormControl>
                                                       <Input placeholder="Level" {...field} />
                                                 </FormControl>
@@ -89,15 +100,15 @@ export const MainForm = () => {
                               />
                               <FormField
                                     control={form.control}
-                                    name="time"
+                                    name="value"
                                     render={({ field }) => (
                                           <FormItem>
-                                                <FormLabel>Time</FormLabel>
+                                                <FormLabel>Value</FormLabel>
                                                 <FormControl>
                                                       <Input placeholder="Time" {...field} />
                                                 </FormControl>
                                                 <FormDescription>
-                                                      This is the time duration of the sample.
+                                                      This is a noice level.
                                                 </FormDescription>
                                                 <FormMessage />
                                           </FormItem>

@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
 const formSchema = z.object({
-      level: z.string().min(1),
-      time: z.string().min(1)
+      name : z.string().min(1),
+      value: z.string().min(1),
 });
 
 export async function POST(req: Request) {
@@ -15,13 +15,12 @@ export async function POST(req: Request) {
             const body = await req.json();
             const payload = formSchema.parse(body);
 
-            const dbStore = await db.data.create({
-                  data: {
-                        level: Number(payload.level),
-                        time: Number(payload.time)
-                  },
-            });
-
+            const dbStore = await db.noiceLevel.create({
+                  data : {
+                        name : payload.name,
+                        value : Number(payload.value)
+                  }
+            })
             return NextResponse.json(dbStore, { status: 201 });
       } catch (error) {
             if (error instanceof z.ZodError) {
@@ -36,7 +35,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
       try {
-            const data = await db.data.findMany();
+            const data = await db.noiceLevel.findMany();
             return NextResponse.json(data, { status: 200 });
       } catch (error) {
             return new NextResponse(null, { status: 500 });

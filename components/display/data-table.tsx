@@ -3,8 +3,8 @@
 import {
       ColumnDef,
       flexRender,
-      getCoreRowModel,
       useReactTable,
+      getCoreRowModel
 } from "@tanstack/react-table"
 
 import {
