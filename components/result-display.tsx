@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Data } from "@prisma/client"
+import { NoiceLevel } from "@prisma/client"
 import {
       Card,
       CardContent,
@@ -13,10 +13,10 @@ import { Input } from "@/components/ui/input";
 import { useMounted } from "@/hooks/use-mounted";
 
 interface ResultDisplayProps {
-      data: Data[]
+      data: NoiceLevel[]
 }
 
-function calculateLeq(samples: Data[]): number {
+function calculateLeq(samples: NoiceLevel[]): number {
       let sum = 0;
       let totalDuration = 0;
 

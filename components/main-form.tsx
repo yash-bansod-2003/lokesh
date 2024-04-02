@@ -21,8 +21,19 @@ import { useMounted } from "@/hooks/use-mounted";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-      name : z.string().min(2).max(10),
-      value: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
+      l10 : z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
+            message: "Expected number, received a string"
+      }),
+      l50: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
+            message: "Expected number, received a string"
+      }),
+      l90: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
+            message: "Expected number, received a string"
+      }),
+      lmax: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
+            message: "Expected number, received a string"
+      }),
+      lmin: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
             message: "Expected number, received a string"
       }),
 })
@@ -36,8 +47,11 @@ export const MainForm = () => {
       const form = useForm<z.infer<typeof formSchema>>({
             resolver: zodResolver(formSchema),
             defaultValues: {
-                  name : "",
-                  value : "0"
+                 l10 : "0",
+                 l50 : "0",
+                 l90 : "0",
+                 lmax : "0",
+                 lmin : "0"
             },
       })
 
@@ -84,10 +98,10 @@ export const MainForm = () => {
                               </legend>
                               <FormField
                                     control={form.control}
-                                    name="name"
+                                    name="l10"
                                     render={({ field }) => (
                                           <FormItem>
-                                                <FormLabel>Name</FormLabel>
+                                                <FormLabel>L10</FormLabel>
                                                 <FormControl>
                                                       <Input placeholder="Level" {...field} />
                                                 </FormControl>
@@ -100,21 +114,69 @@ export const MainForm = () => {
                               />
                               <FormField
                                     control={form.control}
-                                    name="value"
+                                    name="l50"
                                     render={({ field }) => (
                                           <FormItem>
-                                                <FormLabel>Value</FormLabel>
+                                                <FormLabel>L50</FormLabel>
                                                 <FormControl>
                                                       <Input placeholder="Time" {...field} />
                                                 </FormControl>
                                                 <FormDescription>
-                                                      This is a noice level.
+                                                      This is a value of L50.
                                                 </FormDescription>
                                                 <FormMessage />
                                           </FormItem>
                                     )}
                               />
-                              <Button disabled={isLoading} type="submit">Submit</Button>
+                                <FormField
+                                    control={form.control}
+                                    name="l90"
+                                    render={({ field }) => (
+                                          <FormItem>
+                                                <FormLabel>L90</FormLabel>
+                                                <FormControl>
+                                                      <Input placeholder="Time" {...field} />
+                                                </FormControl>
+                                                <FormDescription>
+                                                      This is a value of L90.
+                                                </FormDescription>
+                                                <FormMessage />
+                                          </FormItem>
+                                    )}
+                              />
+                                <FormField
+                                    control={form.control}
+                                    name="l50"
+                                    render={({ field }) => (
+                                          <FormItem>
+                                                <FormLabel>LMAX</FormLabel>
+                                                <FormControl>
+                                                      <Input placeholder="Time" {...field} />
+                                                </FormControl>
+                                                <FormDescription>
+                                                      This is a value of LMAX.
+                                                </FormDescription>
+                                                <FormMessage />
+                                          </FormItem>
+                                    )}
+                              />
+                                <FormField
+                                    control={form.control}
+                                    name="l50"
+                                    render={({ field }) => (
+                                          <FormItem>
+                                                <FormLabel>LMIN</FormLabel>
+                                                <FormControl>
+                                                      <Input placeholder="Time" {...field} />
+                                                </FormControl>
+                                                <FormDescription>
+                                                      This is a value of LMIN.
+                                                </FormDescription>
+                                                <FormMessage />
+                                          </FormItem>
+                                    )}
+                              />
+                              <Button disabled={isLoading} type="submit">Compute</Button>
                         </fieldset>
                   </form>
             </Form>
