@@ -93,8 +93,8 @@ export const Client = () => {
   }
 
   return (
-    <div className="grid flex-1 gap-4 overflow-auto p-4 grid-cols-2">
-      <div className="relative hidden flex-col items-start gap-8 md:flex">
+    <div className="h-full w-full flex gap-4">
+      <div className="w-1/2">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -183,7 +183,7 @@ export const Client = () => {
           </form>
         </Form>
       </div>
-      <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2 gap-4">
+      <div className="w-1/2 grid grid-cols-2 grid-rows-4 gap-8 mt-3">
         <Card>
           <CardHeader>
             <CardTitle>Leq</CardTitle>
