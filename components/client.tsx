@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMounted } from "@/hooks/use-mounted";
-import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -52,7 +51,6 @@ const formSchema = z.object({
 });
 
 export const Client = () => {
-  const router = useRouter();
   const { mounted } = useMounted();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
@@ -83,7 +81,7 @@ export const Client = () => {
 
     let leq = calculateLeq(soundLevels);
     setLeq(leq);
-    setLnp(calculateLNP(leq , soundLevels))
+    setLnp(calculateLNP(leq, soundLevels))
     setTni(calculateTNI(soundLevels))
     setNc(calculateNC(soundLevels));
   }
@@ -228,6 +226,18 @@ export const Client = () => {
             </form>
           </CardContent>
         </Card>
+        <div className="col-span-2">
+          <blockquote className="mt-6 border-l-2 pl-6 italic text-2xl font-bold">
+            &quot;Sound pollution: the silent killer of tranquility.&quot;          </blockquote>
+          <p className="mt-8 mb-6 ml-6 text-3xl font-bold">TEAM TIWARI SIR</p>
+          <div className="ml-6 text-xl font-semibold">
+            <p>Mr. LOKESH BARDE</p>
+            <p>Ms. PRAPTI BHAGWAT</p>
+            <p>Ms. SAKSHI PATIL</p>
+            <p>Mr. ADITYA WANKHADE</p>
+            <p>Ms. ACHAL JAWANJAL</p>
+          </div>
+        </div>
       </div>
     </div>
   );
